@@ -1,16 +1,11 @@
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 public class PandemicScraperVer {
-    public static final ArrayList<Elements> sources = new ArrayList<>();
-
     public static void main(String[] args) throws IOException {
 
         Connection connection = Jsoup.connect("https://www.medonet.pl/koronawirus/to-musisz-wiedziec,zasieg-koronawirusa-covid-19--mapa-,artykul,54726942.html?utm_source=sgonet&utm_medium=referral&utm_campaign=mapasgonet&srcc=mapasgonet");
@@ -22,19 +17,10 @@ public class PandemicScraperVer {
         Elements worldwideCases = document.select("#pageArticle > section:nth-child(3) > section > div:nth-child(6) > ol > li:nth-child(2) > span.value");
         Elements curedWorldwide = document.select("#pageArticle > section:nth-child(3) > section > div.inlineFrame.question > ol > li:nth-child(2) > span.value");
 
-        sources.add(polandCases);
-        sources.add(worldwideCases);
-        sources.add(polandDeaths);
-        sources.add(worldwideDeaths);
-        sources.add(curedWorldwide);
-
-        for(Elements element : sources) {
-            System.out.println(element.text());
-        }
-
-        String text = sources.get(0).text();
-        String replacedText = text.replaceAll("\\D"," ").trim();
-        String[] subString = replacedText.split(" ");
-        System.out.printf("%d %d %d", Integer.valueOf(subString[0]), Integer.valueOf(subString[1]), Integer.valueOf(subString[2]));
+        System.out.println("Całkowita liczba zgonów: \n" + "-" + polandDeaths.text() + "\n" +
+                "-"+ worldwideDeaths.text());
+        System.out.println("Liczba potwierdzonych przypadków: \n" + "-" + polandCases.text() + "\n" +
+                "-"+ worldwideCases.text());
+        System.out.println("Liczba ozdrowieńców: \n" + "-" + curedWorldwide.text());
     }
 }
