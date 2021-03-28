@@ -6,6 +6,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class PandemicScraperVer {
     public static final ArrayList<Elements> sources = new ArrayList<>();
@@ -19,7 +20,7 @@ public class PandemicScraperVer {
         Elements worldwideDeaths = document.select("#pageArticle > section:nth-child(3) > section > div.inlineFrame.warning > ol > li:nth-child(2) > span.value");
         Elements polandCases = document.select("#pageArticle > section:nth-child(3) > section > div:nth-child(6) > ol > li:nth-child(1) > span.value");
         Elements worldwideCases = document.select("#pageArticle > section:nth-child(3) > section > div:nth-child(6) > ol > li:nth-child(2) > span.value");
-        Elements curedWorldwide = document.select("#pageArticle > section:nth-child(3) > section > div:nth-child(6) > ol > li:nth-child(2) > span.value");
+        Elements curedWorldwide = document.select("#pageArticle > section:nth-child(3) > section > div.inlineFrame.question > ol > li:nth-child(2) > span.value");
 
         sources.add(polandCases);
         sources.add(worldwideCases);
@@ -30,5 +31,10 @@ public class PandemicScraperVer {
         for(Elements element : sources) {
             System.out.println(element.text());
         }
+
+        String text = sources.get(0).text();
+        String replacedText = text.replaceAll("\\D"," ").trim();
+        String[] subString = replacedText.split(" ");
+        System.out.printf("%d %d %d", Integer.valueOf(subString[0]), Integer.valueOf(subString[1]), Integer.valueOf(subString[2]));
     }
 }
