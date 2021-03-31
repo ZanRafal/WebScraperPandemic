@@ -1,5 +1,5 @@
 # WebScraperPandemic
-Simple web scraper collecting data such as: daily and overall number of cases, deaths and pepople cured.
+Simple web scraper collecting data such as: daily and overall number of cases, deaths and people cured.
 
 Source site used: https://www.onet.pl
 
